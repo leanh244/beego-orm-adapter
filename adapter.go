@@ -118,10 +118,10 @@ func (a *Adapter) createDatabase() error {
 func (a *Adapter) open() {
 	var err error
 
-	err = a.registerDataBase("default", a.driverName, a.dataSourceName)
-	if err != nil {
-		panic(err)
-	}
+	// err = a.registerDataBase("default", a.driverName, a.dataSourceName)
+	// if err != nil {
+	// 	panic(err)
+	// }
 
 	if a.dbSpecified {
 		err = a.registerDataBase("casbin", a.driverName, a.dataSourceName)
