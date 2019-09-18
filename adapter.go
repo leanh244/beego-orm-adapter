@@ -93,7 +93,7 @@ func (a *Adapter) createDatabase() error {
 	var err error
 	var o orm.Ormer
 	if a.driverName == "postgres" {
-		err = a.registerDataBase("create_casbin", a.driverName, a.dataSourceName + " dbname=postgres")
+		err = a.registerDataBase("create_casbin", a.driverName, a.dataSourceName+" dbname=postgres")
 	} else {
 		err = a.registerDataBase("create_casbin", a.driverName, a.dataSourceName)
 	}
@@ -103,7 +103,7 @@ func (a *Adapter) createDatabase() error {
 	o = orm.NewOrm()
 
 	if a.driverName == "postgres" {
-		if 		_, err = o.Raw("CREATE DATABASE casbin").Exec(); err != nil {
+		if _, err = o.Raw("CREATE DATABASE casbin").Exec(); err != nil {
 			// 42P04 is	duplicate_database
 			if err.(*pq.Error).Code == "42P04" {
 				return nil
@@ -134,9 +134,9 @@ func (a *Adapter) open() {
 		}
 
 		if a.driverName == "postgres" {
-			err = a.registerDataBase("casbin", a.driverName, a.dataSourceName + " dbname=casbin")
+			err = a.registerDataBase("casbin", a.driverName, a.dataSourceName+" dbname=casbin")
 		} else {
-			err = a.registerDataBase("casbin", a.driverName, a.dataSourceName + "casbin")
+			err = a.registerDataBase("casbin", a.driverName, a.dataSourceName+"casbin")
 		}
 		if err != nil {
 			panic(err)
@@ -146,7 +146,7 @@ func (a *Adapter) open() {
 	a.o = orm.NewOrm()
 	a.o.Using("casbin")
 
-	a.createTable()
+	// a.createTable()
 }
 
 func (a *Adapter) close() {
@@ -234,8 +234,8 @@ func savePolicyLine(ptype string, rule []string) CasbinRule {
 
 // SavePolicy saves policy to database.
 func (a *Adapter) SavePolicy(model model.Model) error {
-	a.dropTable()
-	a.createTable()
+	// a.dropTable()
+	// a.createTable()
 
 	var lines []CasbinRule
 
@@ -278,28 +278,28 @@ func (a *Adapter) RemoveFilteredPolicy(sec string, ptype string, fieldIndex int,
 	line.PType = ptype
 	filter := []string{}
 	filter = append(filter, "p_type")
-	if fieldIndex <= 0 && 0 < fieldIndex + len(fieldValues) {
-		line.V0 = fieldValues[0 - fieldIndex]
+	if fieldIndex <= 0 && 0 < fieldIndex+len(fieldValues) {
+		line.V0 = fieldValues[0-fieldIndex]
 		filter = append(filter, "v0")
 	}
-	if fieldIndex <= 1 && 1 < fieldIndex + len(fieldValues) {
-		line.V1 = fieldValues[1 - fieldIndex]
+	if fieldIndex <= 1 && 1 < fieldIndex+len(fieldValues) {
+		line.V1 = fieldValues[1-fieldIndex]
 		filter = append(filter, "v1")
 	}
-	if fieldIndex <= 2 && 2 < fieldIndex + len(fieldValues) {
-		line.V2 = fieldValues[2 - fieldIndex]
+	if fieldIndex <= 2 && 2 < fieldIndex+len(fieldValues) {
+		line.V2 = fieldValues[2-fieldIndex]
 		filter = append(filter, "v2")
 	}
-	if fieldIndex <= 3 && 3 < fieldIndex + len(fieldValues) {
-		line.V3 = fieldValues[3 - fieldIndex]
+	if fieldIndex <= 3 && 3 < fieldIndex+len(fieldValues) {
+		line.V3 = fieldValues[3-fieldIndex]
 		filter = append(filter, "v3")
 	}
-	if fieldIndex <= 4 && 4 < fieldIndex + len(fieldValues) {
-		line.V4 = fieldValues[4 - fieldIndex]
+	if fieldIndex <= 4 && 4 < fieldIndex+len(fieldValues) {
+		line.V4 = fieldValues[4-fieldIndex]
 		filter = append(filter, "v4")
 	}
-	if fieldIndex <= 5 && 5 < fieldIndex + len(fieldValues) {
-		line.V5 = fieldValues[5 - fieldIndex]
+	if fieldIndex <= 5 && 5 < fieldIndex+len(fieldValues) {
+		line.V5 = fieldValues[5-fieldIndex]
 		filter = append(filter, "v5")
 	}
 
